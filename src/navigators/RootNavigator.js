@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addNavigationHelpers, TabNavigator } from 'react-navigation';
 import News from './../containers/NewsContainer';
-import Bookmark from './../components/Bookmark';
+import Bookmark from './../containers/BookmarkContainer';
 import Search from './../components/Search';
 
 const tabScenes = {

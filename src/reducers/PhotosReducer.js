@@ -3,8 +3,11 @@ import {
 	FETCH_PHOTOS_START,
 	FETCH_PHOTOS_SUCCESS,
 	FETCH_PHOTOS_FAIL,
-	ADD_FAVORITE_PHOTO,
 } from './../actions/PhotosAction';
+
+import {
+	ADD_FAVORITE_PHOTO,
+} from './../actions/FavoriteAction';
 
 const initialState = {
 	status: '',
@@ -16,26 +19,34 @@ export default function photosState(state = initialState, action) {
 
 	switch (action.type) {
 		case FETCH_PHOTOS_START:
-		return {
-			...state,
-			status: 'loading',
-		};
+			return {
+				...state,
+				status: 'loading',
+			};
 		case FETCH_PHOTOS_SUCCESS:
-		return {
-			status: 'success',
-			list: action.payload,
-		};
+			return {
+				...state,
+				status: 'success',
+				list: action.payload,
+			};
 		case FETCH_PHOTOS_FAIL:
-		return {
-			...state,
-			status: 'fail',
-		};
+			return {
+				...state,
+				status: 'fail',
+			};
 		case ADD_FAVORITE_PHOTO:
-		return {
-			status: 'success',
-			favList: [ ...state.favList, action.payload ],
-		};
+			if (!state.favList.includes(action.payload)) {
+				return {
+					...state,
+					favList: [ ...state.favList, action.payload ],
+				};
+			} else {
+				return {
+					...state,
+					favList: state.favList.filter(photos => photos !== action.payload),
+				};
+			}
 		default:
-		return state;
+			return state;
 	}
 }
